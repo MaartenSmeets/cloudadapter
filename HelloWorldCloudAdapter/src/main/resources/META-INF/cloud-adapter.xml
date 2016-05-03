@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<tns:AdapterPluginConfig xmlns:tns="http://xmlns.oracle.com/adapters/cloud">
+	<adapterPluginID>sample</adapterPluginID>
+	<displayName>Sample Cloud Adapter-SOAP</displayName>
+	<description>Oracle Sample Cloud Adapter-SOAP</description>
+	<adapterFactory>oracle.tip.tools.ide.adapters.samplecloudadapter.runtime.SampleCloudAdapterFactory</adapterFactory>
+	<messageExchangePatterns>
+                <messageExchangePattern>NOTIFICATION</messageExchangePattern>
+		<messageExchangePattern>REQUEST_RESPONSE</messageExchangePattern>
+	</messageExchangePatterns>
+	<supportedSecurityPolicies>
+		<policy>USERNAME_PASSWORD_TOKEN</policy>
+	</supportedSecurityPolicies>
+	<defaultSecurityPolicy>USERNAME_PASSWORD_TOKEN</defaultSecurityPolicy>
+	<propertyDefinitions>
+		<propertyDefinition>
+			<propertyName>targetWSDLURL</propertyName>
+			<propertyType>WSDL_URL</propertyType>
+			<propertyGroup>CONNECTION_PROPS</propertyGroup>
+			<required>true</required>
+			<persistent>true</persistent>
+			<displayName>WSDL URL</displayName>
+		</propertyDefinition>
+	</propertyDefinitions>
+	<UIProviderClass>oracle.tip.tools.ide.adapters.samplecloudadapter.wizard.SampleCloudAdapterProvider</UIProviderClass>
+        <sdkVersion>2.1.0</sdkVersion>
+</tns:AdapterPluginConfig>
+

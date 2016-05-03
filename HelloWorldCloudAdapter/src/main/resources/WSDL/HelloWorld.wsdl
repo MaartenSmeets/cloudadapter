@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions
+     name="GreeterProcess"
+     targetNamespace="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://desktop-4dkb5ca:7101/soa-infra/services/default/GreetingService!1.0/WSDLs/GreeterProcess.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="GreeterProcess">
+        <plnk:role name="GreeterProcessProvider" portType="client:GreeterProcess"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess"
+     xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="process">
+        <complexType>
+            <sequence>
+                <element name="greeting" type="string"/>
+                <element name="name" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="processResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
+    </wsdl:types>
+    <wsdl:message name="GreeterProcessRequestMessage">
+        <wsdl:part name="payload" element="client:process"/>
+    </wsdl:message>
+    <wsdl:message name="GreeterProcessResponseMessage">
+        <wsdl:part name="payload" element="client:processResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="GreeterProcess">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:GreeterProcessRequestMessage"/>
+            <wsdl:output message="client:GreeterProcessResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GreeterProcessBinding" type="client:GreeterProcess">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="greeterprocess_client_ep">
+        <wsdl:port name="GreeterProcess_pt" binding="client:GreeterProcessBinding">
+            <soap:address location="http://desktop-4dkb5ca:7101/soa-infra/services/default/GreetingService/greeterprocess_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
