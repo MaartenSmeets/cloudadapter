@@ -91,6 +91,8 @@ public class SampleCloudAdapterUtil {
             SOAPMessage message = factory.createMessage();
             try{
             
+            //see also SampleCloudAdapterMessageHandler
+            
             //message = factory.createMessage();
             SOAPPart part = message.getSOAPPart();
             SOAPEnvelope envelope = part.getEnvelope();

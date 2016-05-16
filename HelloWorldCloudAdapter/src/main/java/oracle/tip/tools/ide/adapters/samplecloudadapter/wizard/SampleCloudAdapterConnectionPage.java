@@ -1,20 +1,46 @@
 package oracle.tip.tools.ide.adapters.samplecloudadapter.wizard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import java.util.Properties;
+
+import oracle.cloud.connectivity.SecurityPolicy;
+
+import oracle.cloud.connectivity.SecurityPolicyInfo;
+import oracle.cloud.connectivity.SecurityPolicyPropertyDefinitionsFactory;
+
+import oracle.tip.tools.adapters.cloud.api.CloudAdapterCallerContext;
+import oracle.tip.tools.adapters.cloud.api.CloudAdapterCsfKey;
+import oracle.tip.tools.adapters.cloud.api.CloudAdapterFilter;
 import oracle.tip.tools.adapters.cloud.api.ICloudAdapterPage;
 import oracle.tip.tools.adapters.cloud.impl.CloudAdapterConnectionPage;
 import oracle.tip.tools.adapters.cloud.l10n.CloudAdapterText;
 import oracle.tip.tools.adapters.cloud.utils.CloudAdapterUtils;
 import oracle.tip.tools.ide.adapters.cloud.api.connection.AbstractCloudConnection;
 import oracle.tip.tools.ide.adapters.cloud.api.connection.PingStatus;
+import oracle.tip.tools.ide.adapters.cloud.api.connection.PropertyDefinition;
+import oracle.tip.tools.ide.adapters.cloud.api.connection.PropertyGroup;
+import oracle.tip.tools.ide.adapters.cloud.api.connection.PropertyType;
+import oracle.tip.tools.ide.adapters.cloud.api.model.TransformationModel;
 import oracle.tip.tools.ide.adapters.cloud.api.plugin.AdapterPluginContext;
+import oracle.tip.tools.ide.adapters.cloud.impl.metadata.model.TransformationModelBuilder;
+import oracle.tip.tools.presentation.uiobjects.sdk.CheckBoxObject;
 import oracle.tip.tools.presentation.uiobjects.sdk.EditField;
+import oracle.tip.tools.presentation.uiobjects.sdk.IButtonObject;
+import oracle.tip.tools.presentation.uiobjects.sdk.IFileFilterType;
+import oracle.tip.tools.presentation.uiobjects.sdk.ILabelObject;
+import oracle.tip.tools.presentation.uiobjects.sdk.ILinkObject;
 import oracle.tip.tools.presentation.uiobjects.sdk.IPasswordObject;
+import oracle.tip.tools.presentation.uiobjects.sdk.IPopupDialog;
+import oracle.tip.tools.presentation.uiobjects.sdk.SelectObject;
+import oracle.tip.tools.presentation.uiobjects.sdk.TextAreaObject;
+import oracle.tip.tools.presentation.uiobjects.sdk.TextBoxObject;
 import oracle.tip.tools.presentation.uiobjects.sdk.UIError;
 import oracle.tip.tools.presentation.uiobjects.sdk.UIFactory;
 import oracle.tip.tools.presentation.uiobjects.sdk.UIObject;
@@ -27,6 +53,23 @@ public class SampleCloudAdapterConnectionPage  extends CloudAdapterConnectionPag
         this.adapterPluginContext = adapterPluginContext;
         
         System.out.println("SampleCloudAdapterConnectionPage constructor");
+    }
+    
+   
+    private void createOrUpdateField(LinkedList<EditField> editFields, String fieldName, String fieldLabel, String desc, boolean required, UIObject uiObj, String helpText, int rowIndex, EditField.LabelFieldAlignment labelFieldAlignment) {
+      EditField editField = null;
+      Map<String, EditField> fieldsMap = EditField.getFieldMap((EditField[])editFields.toArray(new EditField[editFields.size()]));
+      if (fieldsMap != null) {
+        editField = (EditField)fieldsMap.get(fieldName);
+      }
+      
+      if (editField != null) {
+        int index = editFields.indexOf(editField);
+        editFields.remove(index);
+        editFields.add(index, UIFactory.createEditField(fieldName, fieldLabel, desc, required, false, uiObj, EditField.LabelFieldLayout.ONE_ROW_LAYOUT, helpText, rowIndex, labelFieldAlignment));
+      } else {
+        editFields.add(UIFactory.createEditField(fieldName, fieldLabel, desc, required, false, uiObj, EditField.LabelFieldLayout.ONE_ROW_LAYOUT, helpText, rowIndex, labelFieldAlignment));
+      }
     }
     
     @Override
@@ -78,7 +121,4 @@ public class SampleCloudAdapterConnectionPage  extends CloudAdapterConnectionPag
         System.out.println("SampleCloudAdapterConnectionPage validatePage end before return");
         return errorMap;
       }
-      
-    
-    
 }

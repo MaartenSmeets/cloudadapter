@@ -62,15 +62,15 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
     int counter = 0;
     public static String XML_NS = "http://www.w3.org/2000/xmlns/";
     // During runtime, sample Cloud adapter handles only one service operation called "createAccount". Adapter developer should implement for all the service operations.
-    //private static String CREATE_OPERATION = "CreateAccount";
+    private static String CREATE_OPERATION = "process";
     
     // OperationHandler (list) is an adapter specific interface to handle message request, response and fault for all the service operations. In this case, it is createAccount only
-    //private Map<String,OperationHandler> operationHandlers = new HashMap<String, OperationHandler>();
+    private Map<String,OperationHandler> operationHandlers = new HashMap<String, OperationHandler>();
         
     public SampleCloudAdapterMessageHandler() {
         
         // Add createAccount operation handler to operationhanlders list.
-        //operationHandlers.put(CREATE_OPERATION, new CreateOperationHandler());
+        operationHandlers.put(CREATE_OPERATION, new CreateOperationHandler());
     }
 
     /**
@@ -84,9 +84,17 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
     public boolean handleRequestMessage(CloudInvocationContext context,
                                         CloudMessage message) throws CloudInvocationException {
       
+        System.out.println("SampleCloudAdapterMessageHandler handleRequestMessage");
         try{
         this.normalizeRootElement(context, message.getMessagePayloadAsDocument());
+        new XmlNamespaceTranslator()
+                .addTranslation(null, SampleCloudAdapterConstants.SAMPLE_MESSAGES_NAMESPACE)
+                .addTranslation("", SampleCloudAdapterConstants.SAMPLE_MESSAGES_NAMESPACE)
+            .addTranslation("http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference/types", SampleCloudAdapterConstants.SAMPLE_MESSAGES_NAMESPACE)
+                .translateNamespaces(message.getMessagePayloadAsDocument());
         processRequestHeaders(message, context.getCloudOperationProperties(), context.getAuthenticationManager());
+            
+        System.out.println("SampleCloudAdapterMessageHandler handleRequestMessage Message: " + printXML(message.getMessagePayloadAsDocument()));
         }catch (Exception e) {
                 context.getLoggingService().logError("SampleCloudAdapterMessageHandler#handleRequestMessage", e);
                 throw new CloudInvocationException(e);
@@ -105,6 +113,7 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
         QName targetRootElementName = new QName(
                         targetWSDL.getTargetNamespace(),
                         context.getTargetOperationName());
+        
         Element sourceRootElement = requestDocument.getDocumentElement();
         String originalNamespace = sourceRootElement.getNamespaceURI();
         String originalPrefix = sourceRootElement.getPrefix();
@@ -125,7 +134,7 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
                 sourceRootElement.setAttributeNS(XML_NS, "xmlns:" + originalPrefix,
                                 originalNamespace);
         }
-        sourceRootElement.normalize();
+        //sourceRootElement.normalize();
         return sourceRootElement;
     }
     
@@ -198,8 +207,8 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
                     Map jcaEndpointInteractionProperties,
                     AuthenticationManager authManager) throws CloudInvocationException {
             
-            MessageHeader header = createWSSHeader(jcaEndpointInteractionProperties,authManager);
-            message.addMessageHeader(header);
+            //MessageHeader header = createWSSHeader(jcaEndpointInteractionProperties,authManager);
+            //message.addMessageHeader(header);
             
             
             Document doc = message.getMessagePayloadAsDocument();
@@ -249,12 +258,18 @@ public class SampleCloudAdapterMessageHandler implements CloudMessageHandler {
             SOAPHeaderBuilder builder = new SOAPHeaderBuilder(wssHeaderName, true,
                             null);
             MessageHeader messageHeader = builder.createHeader(wssUserNameToken);
+            //messageHeader.addHeaderAttribute(arg0, arg1);
+                
+            //    .setAttribute("env:mustUnderstand", "0");
             messageHeader.addHeaderAttribute("wsu:Id",
                             "UsernameToken-" + Integer.toString(counter++));
                         
             messageHeader.addChild(builder.createHeader(wssUserName, userName));
             MessageHeader passwordHeader = builder.createHeader(wsspasswordName,
                             password);
+            
+        //she.setAttribute("env:mustUnderstand", "0");
+            
             passwordHeader.addHeaderAttribute(
                                             "Type",
                                             "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText");

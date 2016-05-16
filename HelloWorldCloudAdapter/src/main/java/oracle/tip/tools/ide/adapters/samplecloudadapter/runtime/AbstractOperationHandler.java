@@ -32,7 +32,7 @@ public abstract class AbstractOperationHandler implements OperationHandler {
     public void handleOperationRequest(CloudInvocationContext context,
                     Document requestDocument, String version)
                     throws CloudInvocationException {
-        
+
         context.getLoggingService().logDebug(
                         "AbstractOperationHander#handleOperationRequest() invoked");
         if (context.getLoggingService().isLevel(Level.DEBUG)) {
@@ -44,13 +44,11 @@ public abstract class AbstractOperationHandler implements OperationHandler {
                 context.getLoggingService().logDebug("<=====");
         }
       
-        Element sourceRootElement = normalizeRootElement(context,
-                        requestDocument, version);
-      
+        Element sourceRootElement = normalizeRootElement(context,requestDocument, version);
         
-        requestDocument.normalizeDocument();
+        //requestDocument.normalizeDocument();
+        
         String opName = sourceRootElement.getLocalName();  
-        
 
         if (context.getLoggingService().isLevel(Level.DEBUG)) {
                 context.getLoggingService().logDebug(
@@ -75,6 +73,7 @@ public abstract class AbstractOperationHandler implements OperationHandler {
             QName targetRootElementName = new QName(
                             targetWSDL.getTargetNamespace(),
                             context.getTargetOperationName());
+            System.out.println("normalizeRootElement targetWSDL.getTargetNamespace "+targetWSDL.getTargetNamespace());
             Element sourceRootElement = requestDocument.getDocumentElement();
             
             NodeList nodes = sourceRootElement.getChildNodes();
@@ -88,7 +87,7 @@ public abstract class AbstractOperationHandler implements OperationHandler {
             
             sourceRootElement.getParentNode().replaceChild(node, sourceRootElement);
       
-            sourceRootElement.normalize();
+            //sourceRootElement.normalize();
             return sourceRootElement;
     }
 

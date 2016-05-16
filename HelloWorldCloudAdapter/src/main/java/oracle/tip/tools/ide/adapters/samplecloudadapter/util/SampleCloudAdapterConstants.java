@@ -18,12 +18,15 @@ public class SampleCloudAdapterConstants {
         public static final String ARTIFACT_KEY_CALLBACK_SUC = "CALLBACK_SUC";
         public static final String ARTIFACT_KEY_CALLBACK_FAIL = "CALLBACK_FAIL";
         
-        public static final String ENDPOINT_WSDL_DEFAULT_TARGET_NS = "http://xmlns.oracle.com/cloud/adapter/samplecloudadapter";
-        public static final String ENDPOINT_WSDL_DEFAULT_TYPE_NS = "http://xmlns.oracle.com/cloud/adapter/samplecloudadapter/types";
+        public static final String ENDPOINT_WSDL_DEFAULT_TARGET_NS = "http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess";
+        public static final String ENDPOINT_WSDL_DEFAULT_TYPE_NS = "http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess";
+        
         // Business service and Operation Name
-                public static final String SAMPLE_CATALOG_SERVICE_OP_NAME="GetAccount";
-        public static final String SAMPLE_MESSAGES_NAMESPACE="http://example.oracle.com/cloud/sample/SampleAccountService.wsdl/types";
-        public static final String SAMPLE_SERVICE_NAMESPACE="http://example.oracle.com/cloud/sample/SampleAccountService.wsdl";
+        public static final String SAMPLE_CATALOG_SERVICE_OP_NAME="process";
+        //public static final String SAMPLE_MESSAGES_NAMESPACE="http://example.oracle.com/cloud/sample/SampleAccountService.wsdl/types";
+        public static final String SAMPLE_MESSAGES_NAMESPACE="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess";
+        //public static final String SAMPLE_SERVICE_NAMESPACE="http://example.oracle.com/cloud/sample/SampleAccountService.wsdl";
+        public static final String SAMPLE_SERVICE_NAMESPACE="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess";
         
         
         // SOAP Header request details
@@ -70,7 +73,7 @@ public class SampleCloudAdapterConstants {
         //Operations
         public static final String CLOUD_API_VERSION = "1.0";
         public static final String CLOUD_API="Sample Cloud Adapter";
-        public static final String SAMPLE_CLOUD_ADAPTER_BUSINESS_OBJ="createAccount";
+        public static final String SAMPLE_CLOUD_ADAPTER_BUSINESS_OBJ="process";
         public static final String SAMPLE_CLOUD_ADAPTER_PROPERTIES = "properties";
         
         //Runtime Adapter Connection factory class name
