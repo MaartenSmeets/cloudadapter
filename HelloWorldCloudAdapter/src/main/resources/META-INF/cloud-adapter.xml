@@ -10,6 +10,7 @@
 	</messageExchangePatterns>
 	<supportedSecurityPolicies>
 		<policy>USERNAME_PASSWORD_TOKEN</policy>
+                <policy>NONE</policy>
 	</supportedSecurityPolicies>
 	<defaultSecurityPolicy>USERNAME_PASSWORD_TOKEN</defaultSecurityPolicy>
 	<propertyDefinitions>

@@ -21,8 +21,20 @@
                     <implementation-class>oracle.tip.tools.ide.adapters.samplecloudadapter.wizard.SampleCloudScaEndpointImpl</implementation-class>
                     <icon16x16>/oracle/samplecloudadapter/Adapter16x16.png</icon16x16>
                     <icon20x20>/oracle/samplecloudadapter/Adapter20x20.png</icon20x20>
-                     <!-- policy-attachment>ws</policy-attachment -->                  
-                </adapter-type>                
+                </adapter-type>
+                <adapter-type technology-keys="ServiceBusTechnology">
+                    <name>${SAMPLECLOUD_ADAPTER_COMPONENT_NAME_L}</name>
+                    <folder-name>${CLOUD_ADAPTER_COMPONENT_FOLDER_NAME_L}</folder-name>
+                    <category-name>${SCA_ADAPTER_CLOUD_CATEGORY_NAME_L}</category-name>
+                    <description>${SAMPLECLOUD_ADAPTER_COMPONENT_DESC}</description>
+                    <inbound>true</inbound>
+                    <outbound>true</outbound>
+                    <binding-type>sb</binding-type>
+                    <binding-subtype>jca/sample</binding-subtype>
+                    <implementation-class>oracle.tip.tools.ide.adapters.samplecloudadapter.wizard.SampleCloudScaOSBEndpointImpl</implementation-class>
+                    <icon16x16>/oracle/samplecloudadapter/Adapter16x16.png</icon16x16>
+                    <icon20x20>/oracle/samplecloudadapter/Adapter20x20.png</icon20x20>
+                </adapter-type>
             </adapter-types>
         </sca-config-hook>       
      </triggers>
