@@ -1,0 +1,16 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+    
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="SampleReference">
+        <plnk:role name="SampleReferencePortType" portType="ns1:SampleReferencePortType"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference"
+         location="SampleReference.wsdl"/>
+</wsdl:definitions>

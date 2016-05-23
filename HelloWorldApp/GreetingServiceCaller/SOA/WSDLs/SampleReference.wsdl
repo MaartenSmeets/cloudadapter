@@ -1,0 +1,42 @@
+<wsdl:definitions
+    
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/HelloWorldApp/GreetingService/GreeterProcess"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:ns0="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference/types"
+     xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference"
+    >
+    <wsdl:types>
+        <xs:schema xmlns="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference/types"
+             elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference/types">
+            <xs:element name="process" type="processType"/>
+            <xs:complexType name="processType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" type="xs:string" name="greeting"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" type="xs:string" name="name"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="processResponse" type="processResponseType"/>
+            <xs:complexType name="processResponseType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" type="xs:string" name="result"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="processRequestMessage">
+        <wsdl:part name="parameters" element="ns0:process"/>
+    </wsdl:message>
+    <wsdl:message name="processResponseMessage">
+        <wsdl:part name="parameters" element="ns0:processResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="SampleReferencePortType">
+        <wsdl:operation name="process">
+            <cloud:CloudOperation xmlns:cloud="http://xml.oracle.com/types" targetOperation="process"/>
+            <wsdl:input message="ns1:processRequestMessage"/>
+            <wsdl:output message="ns1:processResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

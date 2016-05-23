@@ -1,0 +1,16 @@
+<adapter-config xsdTargetNamespace="http://xmlns.oracle.com/pcbpel/adapter/sample/HelloWorldApp/GreetingServiceCaller/SampleReference/types" name="SampleReferencePortType" adapter="sample" wsdlLocation="SampleReference.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  <connection-factory location="cloud/CloudAdapter">
+    <non-managed-connection managedConnectionFactoryClassName="oracle.tip.tools.ide.adapters.samplecloudadapter.runtime.SampleCloudAppConnectionFactory">
+      <property name="targetWSDLURL" value="../WSDLs/greeterprocess_client_ep.wsdl"/>
+      <property name="csfkey" value="MyDemoKey"/>
+      <property name="csfMap" value="oracle.wsm.security"/>
+      <property name="applicationVersion" value="1.2"/>
+    </non-managed-connection>
+  </connection-factory>
+  <endpoint-interaction portType="SampleReferencePortType" operation="process">
+    <interaction-spec className="oracle.tip.adapter.cloud.CloudInteractionSpec">
+      <property name="targetOperation" value="process"/>
+      <property name="operationPath" value="process"/>
+    </interaction-spec>
+  </endpoint-interaction>
+</adapter-config>
